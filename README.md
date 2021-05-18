@@ -1,5 +1,5 @@
 ![Tests](https://github.com/Informasjonsforvaltning/servicecatalogtordf/workflows/Tests/badge.svg)
-[![codecov](https://codecov.io/gh/Informasjonsforvaltning/servicecatalogtordf/branch/master/graph/badge.svg)](https://codecov.io/gh/Informasjonsforvaltning/servicecatalogtordf)
+[![codecov](https://codecov.io/gh/Informasjonsforvaltning/servicecatalogtordf/branch/main/graph/badge.svg)](https://codecov.io/gh/Informasjonsforvaltning/servicecatalogtordf)
 [![PyPI](https://img.shields.io/pypi/v/servicecatalogtordf.svg)](https://pypi.org/project/servicecatalogtordf/)
 [![Read the Docs](https://readthedocs.org/projects/servicecatalogtordf/badge/)](https://servicecatalogtordf.readthedocs.io/)
 # servicecatalogtordf
