@@ -1,0 +1,44 @@
+[tool.poetry]
+name = "servicecatalogtordf"
+version = "0.1.0-alpha.1"
+description = "A library that will map a service catalog (cpsv) to rdf"
+authors = ["Stig B. Dørmænen <stigbd@gmail.com>"]
+license = "Apache-2.0"
+readme = "README.md"
+homepage = "https://github.com/Informasjonsforvaltning/servicecatalogtordf"
+repository = "https://github.com/Informasjonsforvaltning/servicecatalogtordf"
+documentation = "https://servicecatalogtordf.readthedocs.io"
+classifiers=[
+      "Programming Language :: Python :: 3",
+      "License :: OSI Approved :: Apache Software License",
+      "Operating System :: OS Independent",
+      ]
+[tool.poetry.dependencies]
+python = "^3.9"
+datacatalogtordf = "^1.4.0"
+
+[tool.poetry.dev-dependencies]
+black = "^21.5b1"
+flake8-black = "^0.2.1"
+flake8 = "^3.9.2"
+Sphinx = "^4.0.1"
+sphinx-autodoc-typehints = "^1.12.0"
+Pygments = "^2.9.0"
+xdoctest = {extras = ["all"], version = "^0.15.4"}
+
+
+[tool.coverage.paths]
+source = ["src", "*/site-packages"]
+
+[tool.coverage.run]
+branch = false
+source = ["servicecatalogtordf"]
+
+[tool.coverage.report]
+show_missing = true
+fail_under = 100
+
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
