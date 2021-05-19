@@ -8,8 +8,6 @@ A library that will map a service catalog (cpsv) to rdf
 The library contains helper classes for the following dcat classes:
  - [Catalog](https://www.w3.org/TR/vocab-dcat-2/#Class:Catalog)
  - [Service](https://www.w3.org/TR/vocab-dcat-2/#Class:Service)
- - [Distribution](https://www.w3.org/TR/vocab-dcat-2/#Class:Distribution)
- - [Data Service](https://www.w3.org/TR/vocab-dcat-2/#Class:Data_Service)
 
 
 ## Usage
