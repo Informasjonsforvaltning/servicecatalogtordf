@@ -5,10 +5,16 @@ according to the
 `dcat-ap-no v.2 standard <https://data.norge.no/specification/dcat-ap-no/#OffentligOrganisasjon>`__ # noqa
 
 Example:
+    >>> from datacatalogtordf import Location
     >>> from servicecatalogtordf import PublicOrganization
     >>>
+    >>> # Create the public organization:
     >>> public_organization = PublicOrganization("http://example.com/public-organizations/1")
     >>> public_organization.title = {"en": "Title of public organization"}
+    >>> # Create and add a location to the spatial_coverage property:
+    >>> location = Location()
+    >>> location.identifier = "http://publications.europa.eu/resource/authority/country/NOR"
+    >>> public_organization.spatial_coverage = location
     >>>
     >>> bool(public_organization.to_rdf())
     True
