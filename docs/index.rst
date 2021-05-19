@@ -14,7 +14,7 @@ The library contains helper classes for the following cpsv classes:
 
 * `PublicService <https://data.norge.no/specification/dcat-ap-no/#klasse-offentlig-tjeneste>`_
 
-The library will map to `the Norwegian Application Profile <https://doc.difi.no/dcat-ap-no/>`_ of `the DCAT standard <https://www.w3.org/TR/vocab-dcat-2/>`_.
+The library will map to `the Norwegian Application Profile https://data.norge.no/specification/dcat-ap-no/>`_ of `the DCAT standard <https://www.w3.org/TR/vocab-dcat-2/>`_.
 
 
 Installation

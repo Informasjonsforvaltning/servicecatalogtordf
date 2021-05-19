@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "servicecatalogtordf"
-version = "0.1.0-alpha.1"
+version = "0.1.0-alpha.2"
 description = "A library that will map a service catalog (cpsv) to rdf"
 authors = ["Stig B. Dørmænen <stigbd@gmail.com>"]
 license = "Apache-2.0"
@@ -15,6 +15,7 @@ classifiers=[
       ]
 [tool.poetry.dependencies]
 python = "^3.7"
+skolemizer = "^1.0.0"
 datacatalogtordf = "^1.4.0"
 
 [tool.poetry.dev-dependencies]
@@ -25,6 +26,7 @@ Sphinx = "^4.0.1"
 sphinx-autodoc-typehints = "^1.12.0"
 Pygments = "^2.9.0"
 xdoctest = {extras = ["all"], version = "^0.15.4"}
+pytest-mock = "^3.6.1"
 
 
 [tool.coverage.paths]
