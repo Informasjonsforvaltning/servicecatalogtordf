@@ -13,4 +13,5 @@ try:
 except PackageNotFoundError:  # pragma: no cover
     __version__ = "unknown"
 
+from .public_organization import PublicOrganization
 from .service import Service

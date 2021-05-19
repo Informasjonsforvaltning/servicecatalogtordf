@@ -1,5 +1,4 @@
 """Utils for displaying debug information."""
-
 from rdflib import Graph
 from rdflib.compare import graph_diff, isomorphic
 
