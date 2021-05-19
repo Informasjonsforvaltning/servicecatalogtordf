@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "servicecatalogtordf"
-version = "0.1.0-alpha.1"
+version = "0.1.0-alpha.2"
 description = "A library that will map a service catalog (cpsv) to rdf"
 authors = ["Stig B. Dørmænen <stigbd@gmail.com>"]
 license = "Apache-2.0"
