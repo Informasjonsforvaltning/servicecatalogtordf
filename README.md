@@ -58,8 +58,10 @@ print(rdf.decode())
 ```
 % git clone https://github.com/Informasjonsforvaltning/servicecatalogtordf.git
 % cd servicecatalogtordf
+% pyenv install 3.7.10
+% pyenv install 3.8.8
 % pyenv install 3.9.4
-% pyenv local 3.9.4
+% pyenv local 3.7.10 3.8.8 3.9.4
 % poetry install
 ```
 ### Run all sessions
