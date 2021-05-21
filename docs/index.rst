@@ -36,7 +36,7 @@ This package can be used like this:
 .. code-block::
 
   from datacatalogtordf import Catalog
-  from servicecatalogtordf import Service
+  from servicecatalogtordf import PublicOrganization, Service
 
   # Create catalog object
   catalog = Catalog()
@@ -48,6 +48,11 @@ This package can be used like this:
   service = Service()
   service.identifier = "http://example.com/services/1"
   service.title = {"nb": "inntektsAPI", "en": "incomeAPI"}
+  #
+  # Create a public organization:
+  public_organization = PublicOrganization("https://example.com/publishers/1")
+  # Add it to the service:
+  service.has_competent_authority = public_organization
   #
   # Add service to catalog:
   catalog.services.append(service)

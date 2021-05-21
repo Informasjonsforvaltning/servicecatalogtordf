@@ -15,12 +15,13 @@ Example:
 """
 from __future__ import annotations
 
-from typing import Optional
+from typing import List, Optional
 
 from datacatalogtordf import URI
 from rdflib import Graph, Literal, Namespace, RDF, URIRef
 
 from .public_organization import PublicOrganization
+from .rule import Rule
 
 DCT = Namespace("http://purl.org/dc/terms/")
 XSD = Namespace("http://www.w3.org/2001/XMLSchema#")
@@ -39,6 +40,7 @@ class Service:
         description (dict):  A description given to the service. key is langauge code.
         dct_identifier (str):  A formal identifier of the service.
         has_competent_authority (PublicOrganization): the organization responsible for the service
+        follows (List[Rule]): the rules under which the service is offered
     """
 
     __slots__ = (
@@ -48,6 +50,7 @@ class Service:
         "_description",
         "_dct_identifier",
         "_has_competent_authority",
+        "_follows",
     )
 
     # Types
@@ -57,10 +60,12 @@ class Service:
     _description: dict
     _dct_identifier: str
     _has_competent_authority: PublicOrganization
+    _follows: List[Rule]
 
     def __init__(self, identifier: str) -> None:
         """Inits an object with default values."""
         self.identifier = identifier
+        self.follows = list()
 
     @property
     def identifier(self: Service) -> str:
@@ -91,7 +96,7 @@ class Service:
 
     @property
     def dct_identifier(self: Service) -> str:
-        """dct_identifier attribute."""
+        """Dct_identifier attribute."""
         return self._dct_identifier
 
     @dct_identifier.setter
@@ -100,7 +105,7 @@ class Service:
 
     @property
     def has_competent_authority(self: Service) -> PublicOrganization:
-        """has_competent_authority attribute."""
+        """Has_competent_authority attribute."""
         return self._has_competent_authority
 
     @has_competent_authority.setter
@@ -108,6 +113,15 @@ class Service:
         self: Service, has_competent_authority: PublicOrganization
     ) -> None:
         self._has_competent_authority = has_competent_authority
+
+    @property
+    def follows(self: Service) -> List[Rule]:
+        """Follows attribute."""
+        return self._follows
+
+    @follows.setter
+    def follows(self: Service, follows: List[Rule]) -> None:
+        self._follows = follows
 
     # -
 
@@ -148,6 +162,7 @@ class Service:
         self._description_to_graph()
         self._dct_identifier_to_graph()
         self._has_competent_authority_to_graph()
+        self._follows_to_graph()
 
         return self._g
 
@@ -193,3 +208,14 @@ class Service:
                     URIRef(self.has_competent_authority.identifier),
                 )
             )
+
+    def _follows_to_graph(self: Service) -> None:
+        if getattr(self, "follows", None):
+            for _rule in self.follows:
+                self._g.add(
+                    (
+                        URIRef(self.identifier),
+                        CPSV.follows,
+                        URIRef(_rule.identifier),
+                    )
+                )

@@ -18,7 +18,7 @@ The library contains helper classes for the following dcat classes:
 ### Getting started
 ```
 from datacatalogtordf import Catalog
-from servicecatalogtordf import Service
+from servicecatalogtordf import PublicOrganization, Service
 
 # Create catalog object
 catalog = Catalog()

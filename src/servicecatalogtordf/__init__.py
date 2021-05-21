@@ -38,4 +38,5 @@ except PackageNotFoundError:  # pragma: no cover
     __version__ = "unknown"
 
 from .public_organization import PublicOrganization
+from .rule import Rule
 from .service import Service
