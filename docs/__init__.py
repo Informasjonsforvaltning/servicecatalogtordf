@@ -1,1 +1,1 @@
-"""Test suite for the datacatalogtordf package."""
+"""Docs for the datacatalogtordf package."""
