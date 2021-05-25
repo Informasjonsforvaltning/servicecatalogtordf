@@ -20,6 +20,7 @@ from typing import List, Optional
 from datacatalogtordf import URI
 from rdflib import Graph, Literal, Namespace, RDF, URIRef
 
+from .legal_resource import LegalResource
 from .public_organization import PublicOrganization
 from .rule import Rule
 
@@ -41,6 +42,7 @@ class Service:
         dct_identifier (str):  A formal identifier of the service.
         has_competent_authority (PublicOrganization): the organization responsible for the service
         follows (List[Rule]): the rules under which the service is offered
+        has_legal_resources (List[LegalResource]): a legal resource that the service is related to
     """
 
     __slots__ = (
@@ -51,6 +53,7 @@ class Service:
         "_dct_identifier",
         "_has_competent_authority",
         "_follows",
+        "_has_legal_resources",
     )
 
     # Types
@@ -61,11 +64,13 @@ class Service:
     _dct_identifier: str
     _has_competent_authority: PublicOrganization
     _follows: List[Rule]
+    _has_legal_resources: List[LegalResource]
 
     def __init__(self, identifier: str) -> None:
         """Inits an object with default values."""
         self.identifier = identifier
         self.follows = list()
+        self.has_legal_resources = list()
 
     @property
     def identifier(self: Service) -> str:
@@ -123,6 +128,17 @@ class Service:
     def follows(self: Service, follows: List[Rule]) -> None:
         self._follows = follows
 
+    @property
+    def has_legal_resources(self: Service) -> List[LegalResource]:
+        """Follows attribute."""
+        return self._has_legal_resources
+
+    @has_legal_resources.setter
+    def has_legal_resources(
+        self: Service, has_legal_resources: List[LegalResource]
+    ) -> None:
+        self._has_legal_resources = has_legal_resources
+
     # -
 
     def to_rdf(
@@ -163,6 +179,7 @@ class Service:
         self._dct_identifier_to_graph()
         self._has_competent_authority_to_graph()
         self._follows_to_graph()
+        self._has_legal_resources_to_graph()
 
         return self._g
 
@@ -217,5 +234,16 @@ class Service:
                         URIRef(self.identifier),
                         CPSV.follows,
                         URIRef(_rule.identifier),
+                    )
+                )
+
+    def _has_legal_resources_to_graph(self: Service) -> None:
+        if getattr(self, "has_legal_resources", None):
+            for _legal_resource in self.has_legal_resources:
+                self._g.add(
+                    (
+                        URIRef(self.identifier),
+                        CV.hasLegalResource,
+                        URIRef(_legal_resource.identifier),
                     )
                 )
