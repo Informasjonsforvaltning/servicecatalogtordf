@@ -2,6 +2,7 @@
 from rdflib import Graph
 
 from servicecatalogtordf import (
+    Event,
     Evidence,
     LegalResource,
     PublicOrganization,
@@ -184,6 +185,32 @@ def test_to_graph_should_return_service_with_has_input() -> None:
     <http://example.com/services/1> a cpsv:PublicService ;
         cpsv:hasInput <http://example.com/evidences/1> ,
                       <http://example.com/evidences/2> ;
+    .
+    """
+    g1 = Graph().parse(data=service.to_rdf(), format="turtle")
+    g2 = Graph().parse(data=src, format="turtle")
+
+    assert_isomorphic(g1, g2)
+
+
+def test_to_graph_should_return_service_with_is_grouped_by() -> None:
+    """It returns a service graph with cv:isGroupedBy isomorphic to spec."""
+    service = Service("http://example.com/services/1")
+    event_1 = Event("http://example.com/events/1")
+    service.is_grouped_by.append(event_1)
+    event_2 = Event("http://example.com/events/2")
+    service.is_grouped_by.append(event_2)
+
+    src = """
+    @prefix dct: <http://purl.org/dc/terms/> .
+    @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+    @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+    @prefix cpsv: <http://purl.org/vocab/cpsv#> .
+    @prefix cv: <http://data.europa.eu/m8g/> .
+
+    <http://example.com/services/1> a cpsv:PublicService ;
+        cv:isGroupedBy <http://example.com/events/1> ,
+                       <http://example.com/events/2> ;
     .
     """
     g1 = Graph().parse(data=service.to_rdf(), format="turtle")

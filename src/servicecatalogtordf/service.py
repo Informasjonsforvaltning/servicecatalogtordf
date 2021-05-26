@@ -20,6 +20,7 @@ from typing import List, Optional
 from datacatalogtordf import URI
 from rdflib import Graph, Literal, Namespace, RDF, URIRef
 
+from .event import Event
 from .evidence import Evidence
 from .legal_resource import LegalResource
 from .public_organization import PublicOrganization
@@ -46,6 +47,7 @@ class Service:
         has_legal_resources (List[LegalResource]): a legal resource that the service is related to
         processing_time (str): the (estimated) time needed for executing a Public
         has_input (List[Evidence]): links the Service to one or more instances of the Evidence class
+        is_grouped_by (List[Event]): links the Public Service to the Event class
     """
 
     __slots__ = (
@@ -59,6 +61,7 @@ class Service:
         "_has_legal_resources",
         "_processing_time",
         "_has_input",
+        "_is_grouped_by",
     )
 
     # Types
@@ -72,6 +75,7 @@ class Service:
     _has_legal_resources: List[LegalResource]
     _processing_time: str
     _has_input: List[Evidence]
+    _is_grouped_by: List[Event]
 
     def __init__(self, identifier: str) -> None:
         """Inits an object with default values."""
@@ -79,6 +83,7 @@ class Service:
         self.follows = list()
         self.has_legal_resources = list()
         self.has_input = list()
+        self.is_grouped_by = list()
 
     @property
     def identifier(self: Service) -> str:
@@ -165,6 +170,15 @@ class Service:
     def has_input(self: Service, has_input: List[Evidence]) -> None:
         self._has_input = has_input
 
+    @property
+    def is_grouped_by(self: Service) -> List[Event]:
+        """Has_input attribute."""
+        return self._is_grouped_by
+
+    @is_grouped_by.setter
+    def is_grouped_by(self: Service, is_grouped_by: List[Event]) -> None:
+        self._is_grouped_by = is_grouped_by
+
     # -
 
     def to_rdf(
@@ -208,6 +222,7 @@ class Service:
         self._has_legal_resources_to_graph()
         self._processing_time_to_graph()
         self._has_input_to_graph()
+        self._is_grouped_by_to_graph()
 
         return self._g
 
@@ -294,5 +309,16 @@ class Service:
                         URIRef(self.identifier),
                         CPSV.hasInput,
                         URIRef(_evidence.identifier),
+                    )
+                )
+
+    def _is_grouped_by_to_graph(self: Service) -> None:
+        if getattr(self, "is_grouped_by", None):
+            for _event in self.is_grouped_by:
+                self._g.add(
+                    (
+                        URIRef(self.identifier),
+                        CV.isGroupedBy,
+                        URIRef(_event.identifier),
                     )
                 )
