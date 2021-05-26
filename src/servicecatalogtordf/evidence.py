@@ -4,7 +4,7 @@ This module contains methods for mapping a Evidence object to rdf
 according to the `cpsv-ap specification <https://ec.europa.eu/isa2/solutions/core-public-service-vocabulary-application-profile-cpsv-ap_en>`_ # noqa
 
 Example:
-    >>> from servicecatalogtordf import Evidence, EvidenceType
+    >>> from servicecatalogtordf import Evidence
     >>>
     >>> # Create the evidence:
     >>> evidence = Evidence("http://example.com/evidences/1")

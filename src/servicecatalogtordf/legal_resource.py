@@ -4,11 +4,11 @@ This module contains methods for mapping a LegalResource object to rdf
 according to the `dcat-ap-no v.2 standard <https://data.norge.no/specification/dcat-ap-no/#RegulativRessurs>`_ # noqa
 
 Example:
-    >>> from servicecatalogtordf import LegalResource, LegalResourceType
+    >>> from servicecatalogtordf import LegalResource, ResourceType
     >>>
     >>> # Create the legal_resource:
     >>> legal_resource = LegalResource("http://example.com/legal_resources/1")
-    >>> resource_type = LegalResourceType("http://example.com/types/1")
+    >>> resource_type = ResourceType("http://example.com/types/1")
     >>> legal_resource.types.append(resource_type)
     >>>
     >>> bool(legal_resource.to_rdf())
