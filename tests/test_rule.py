@@ -181,27 +181,3 @@ def test_to_graph_should_return_rule_with_types() -> None:
     g2 = Graph().parse(data=src, format="turtle")
 
     assert_isomorphic(g1, g2)
-
-
-def test_to_graph_should_return_rule_with_processing_time() -> None:
-    """It returns a rule graph with cv:processingTime isomorphic to spec."""
-    rule = Rule("http://example.com/rules/1")
-    rule.processing_time = "PT15M"
-
-    src = """
-    @prefix dct: <http://purl.org/dc/terms/> .
-    @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-    @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-    @prefix cpsv: <http://purl.org/vocab/cpsv#> .
-    @prefix cv: <http://data.europa.eu/m8g/> .
-    @prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
-
-
-    <http://example.com/rules/1> a cpsv:Rule ;
-        cv:processingTime "PT15M"^^xsd:duration ;
-    .
-    """
-    g1 = Graph().parse(data=rule.to_rdf(), format="turtle")
-    g2 = Graph().parse(data=src, format="turtle")
-
-    assert_isomorphic(g1, g2)

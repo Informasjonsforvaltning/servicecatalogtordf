@@ -55,7 +55,6 @@ class Rule:
         "_implements",
         "_languages",
         "_types",
-        "_processing_time",
     )
 
     # Types
@@ -67,7 +66,6 @@ class Rule:
     _implements: List[LegalResource]
     _languages: List[URI]
     _types: List[URI]
-    _processing_time: str
 
     def __init__(self, identifier: Optional[str] = None) -> None:
         """Inits an object with default values."""
@@ -140,15 +138,6 @@ class Rule:
     def types(self: Rule, types: List[str]) -> None:
         self._types = types
 
-    @property
-    def processing_time(self: Rule) -> str:
-        """processing_time attribute."""
-        return self._processing_time
-
-    @processing_time.setter
-    def processing_time(self: Rule, processing_time: str) -> None:
-        self._processing_time = processing_time
-
     # -
 
     def to_rdf(
@@ -193,7 +182,6 @@ class Rule:
         self._implements_to_graph()
         self._languages_to_graph()
         self._types_to_graph()
-        self._processing_time_to_graph()
 
         return self._g
 
@@ -262,13 +250,3 @@ class Rule:
                         URIRef(_type),
                     )
                 )
-
-    def _processing_time_to_graph(self: Rule) -> None:
-        if getattr(self, "processing_time", None):
-            self._g.add(
-                (
-                    URIRef(self.identifier),
-                    CV.processingTime,
-                    Literal(self.processing_time, datatype=XSD.duration),
-                )
-            )
