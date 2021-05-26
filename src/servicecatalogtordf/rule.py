@@ -2,10 +2,9 @@
 
 This module contains methods for mapping a Rule object to rdf
 according to the
-`dcat-ap-no v.2 standard <https://data.norge.no/specification/dcat-ap-no/#OffentligOrganisasjon>`__ # noqa
+`dcat-ap-no v.2 standard <https://data.norge.no/specification/dcat-ap-no/#OffentligOrganisasjon>`_ # noqa
 
 Example:
-    >>> from datacatalogtordf import Location
     >>> from servicecatalogtordf import Rule
     >>>
     >>> # Create the rule:
