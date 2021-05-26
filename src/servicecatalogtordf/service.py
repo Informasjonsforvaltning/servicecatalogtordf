@@ -33,16 +33,18 @@ CV = Namespace("http://data.europa.eu/m8g/")
 class Service:
     """A class representing a cpsv:PublicService.
 
-    Ref: `cpsv:PublicService <https://data.norge.no/specification/dcat-ap-no/#klasse-offentlig-tjeneste>`_. # noqa
+        Ref: `cpsv:PublicService <https://data.norge.no/specification/dcat-ap-no/#klasse-offentlig-tjeneste>`_. # noqa
 
-    Attributes:
-        identifier (URI): A URI uniquely identifying the service
-        title (dict):  A name given to the service. key is langauge code.
-        description (dict):  A description given to the service. key is langauge code.
-        dct_identifier (str):  A formal identifier of the service.
-        has_competent_authority (PublicOrganization): the organization responsible for the service
-        follows (List[Rule]): the rules under which the service is offered
-        has_legal_resources (List[LegalResource]): a legal resource that the service is related to
+        Attributes:
+            identifier (URI): A URI uniquely identifying the service
+            title (dict):  A name given to the service. key is langauge code.
+            description (dict):  A description given to the service. key is langauge code.
+            dct_identifier (str):  A formal identifier of the service.
+            has_competent_authority (PublicOrganization): the organization responsible for the service
+            follows (List[Rule]): the rules under which the service is offered
+            has_legal_resources (List[LegalResource]): a legal resource that the service is related to
+            processing_time (str): the (estimated) time needed for executing a Public
+    Service
     """
 
     __slots__ = (
@@ -54,6 +56,7 @@ class Service:
         "_has_competent_authority",
         "_follows",
         "_has_legal_resources",
+        "_processing_time",
     )
 
     # Types
@@ -65,6 +68,7 @@ class Service:
     _has_competent_authority: PublicOrganization
     _follows: List[Rule]
     _has_legal_resources: List[LegalResource]
+    _processing_time: str
 
     def __init__(self, identifier: str) -> None:
         """Inits an object with default values."""
@@ -139,6 +143,15 @@ class Service:
     ) -> None:
         self._has_legal_resources = has_legal_resources
 
+    @property
+    def processing_time(self: Service) -> str:
+        """processing_time attribute."""
+        return self._processing_time
+
+    @processing_time.setter
+    def processing_time(self: Service, processing_time: str) -> None:
+        self._processing_time = processing_time
+
     # -
 
     def to_rdf(
@@ -180,6 +193,7 @@ class Service:
         self._has_competent_authority_to_graph()
         self._follows_to_graph()
         self._has_legal_resources_to_graph()
+        self._processing_time_to_graph()
 
         return self._g
 
@@ -247,3 +261,13 @@ class Service:
                         URIRef(_legal_resource.identifier),
                     )
                 )
+
+    def _processing_time_to_graph(self: Service) -> None:
+        if getattr(self, "processing_time", None):
+            self._g.add(
+                (
+                    URIRef(self.identifier),
+                    CV.processingTime,
+                    Literal(self.processing_time, datatype=XSD.duration),
+                )
+            )
