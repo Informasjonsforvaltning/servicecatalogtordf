@@ -11,6 +11,7 @@ The library contains helper classes for the following cpsv and related classes:
  - [LegalResource](https://data.norge.no/specification/dcat-ap-no/#klasse-regulativ-ressurs)
  - [Rule](https://data.norge.no/specification/dcat-ap-no/#klasse-regel)
  - [Evidence](https://joinup.ec.europa.eu/collection/semantic-interoperability-community-semic/solution/core-public-service-vocabulary-application-profile)
+ - [Event](https://joinup.ec.europa.eu/collection/semantic-interoperability-community-semic/solution/core-public-service-vocabulary-application-profile)
 
 
 ## Usage

@@ -37,6 +37,7 @@ try:
 except PackageNotFoundError:  # pragma: no cover
     __version__ = "unknown"
 
+from .event import Event
 from .evidence import Evidence
 from .legal_resource import LegalResource, ResourceType
 from .public_organization import PublicOrganization

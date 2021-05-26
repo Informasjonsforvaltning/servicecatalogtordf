@@ -18,6 +18,8 @@ The library contains helper classes for the following cpsv and related classes:
 - `LegalResource <https://data.norge.no/specification/dcat-ap-no/#klasse-regulativ-ressurs>`_
 - `Rule <https://data.norge.no/specification/dcat-ap-no/#klasse-regel>`_
 - `Evidence <https://joinup.ec.europa.eu/collection/semantic-interoperability-community-semic/solution/core-public-service-vocabulary-application-profile>`_
+- `Event <https://joinup.ec.europa.eu/collection/semantic-interoperability-community-semic/solution/core-public-service-vocabulary-application-profile>`_
+`
 
 The library will map to `the Norwegian Application Profile <https://data.norge.no/specification/dcat-ap-no/>`_ of `the DCAT standard <https://www.w3.org/TR/vocab-dcat-2/>`_.
 
