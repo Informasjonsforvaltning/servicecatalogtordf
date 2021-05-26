@@ -10,12 +10,16 @@ Service catalog to RDF library
 
 A small Python library for mapping a service catalog to rdf
 
-The library contains helper classes for the following cpsv classes:
+`Link text <link URL>`_
 
-* `PublicService <https://data.norge.no/specification/dcat-ap-no/#klasse-offentlig-tjeneste>`_
+The library contains helper classes for the following cpsv and related classes:
+- `PublicService <https://data.norge.no/specification/dcat-ap-no/#klasse-offentlig-tjeneste>`_
+- `PublicOrganization <https://data.norge.no/specification/dcat-ap-no/#klasse-offentlig-organisasjon>`_
+- `LegalResource <https://data.norge.no/specification/dcat-ap-no/#klasse-regulativ-ressurs>`_
+- `Rule <https://data.norge.no/specification/dcat-ap-no/#klasse-regel>`_
+- `Evidence <https://joinup.ec.europa.eu/collection/semantic-interoperability-community-semic/solution/core-public-service-vocabulary-application-profile>`_
 
-The library will map to `the Norwegian Application Profile https://data.norge.no/specification/dcat-ap-no/>`_ of `the DCAT standard <https://www.w3.org/TR/vocab-dcat-2/>`_.
-
+The library will map to `the Norwegian Application Profile <https://data.norge.no/specification/dcat-ap-no/>`_ of `the DCAT standard <https://www.w3.org/TR/vocab-dcat-2/>`_.
 
 Installation
 ------------

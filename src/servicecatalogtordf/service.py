@@ -2,7 +2,7 @@
 
 This module contains methods for mapping a service object to rdf
 according to the
-`dcat-ap-no v.2 standard <https://data.norge.no/specification/dcat-ap-no/#OffentligTjeneste>`__
+`dcat-ap-no v.2 standard <https://data.norge.no/specification/dcat-ap-no/#OffentligTjeneste>`_
 
 Example:
     >>> from servicecatalogtordf import Service
@@ -20,6 +20,7 @@ from typing import List, Optional
 from datacatalogtordf import URI
 from rdflib import Graph, Literal, Namespace, RDF, URIRef
 
+from .evidence import Evidence
 from .legal_resource import LegalResource
 from .public_organization import PublicOrganization
 from .rule import Rule
@@ -33,18 +34,18 @@ CV = Namespace("http://data.europa.eu/m8g/")
 class Service:
     """A class representing a cpsv:PublicService.
 
-        Ref: `cpsv:PublicService <https://data.norge.no/specification/dcat-ap-no/#klasse-offentlig-tjeneste>`_. # noqa
+    Ref: `cpsv:PublicService <https://data.norge.no/specification/dcat-ap-no/#klasse-offentlig-tjeneste>`_. # noqa
 
-        Attributes:
-            identifier (URI): A URI uniquely identifying the service
-            title (dict):  A name given to the service. key is langauge code.
-            description (dict):  A description given to the service. key is langauge code.
-            dct_identifier (str):  A formal identifier of the service.
-            has_competent_authority (PublicOrganization): the organization responsible for the service
-            follows (List[Rule]): the rules under which the service is offered
-            has_legal_resources (List[LegalResource]): a legal resource that the service is related to
-            processing_time (str): the (estimated) time needed for executing a Public
-    Service
+    Attributes:
+        identifier (URI): A URI uniquely identifying the service
+        title (dict):  A name given to the service. key is langauge code.
+        description (dict):  A description given to the service. key is langauge code.
+        dct_identifier (str):  A formal identifier of the service.
+        has_competent_authority (PublicOrganization): the organization responsible for the service
+        follows (List[Rule]): the rules under which the service is offered
+        has_legal_resources (List[LegalResource]): a legal resource that the service is related to
+        processing_time (str): the (estimated) time needed for executing a Public
+        has_input (List[Evidence]): links the Service to one or more instances of the Evidence class
     """
 
     __slots__ = (
@@ -57,6 +58,7 @@ class Service:
         "_follows",
         "_has_legal_resources",
         "_processing_time",
+        "_has_input",
     )
 
     # Types
@@ -69,12 +71,14 @@ class Service:
     _follows: List[Rule]
     _has_legal_resources: List[LegalResource]
     _processing_time: str
+    _has_input: List[Evidence]
 
     def __init__(self, identifier: str) -> None:
         """Inits an object with default values."""
         self.identifier = identifier
         self.follows = list()
         self.has_legal_resources = list()
+        self.has_input = list()
 
     @property
     def identifier(self: Service) -> str:
@@ -152,6 +156,15 @@ class Service:
     def processing_time(self: Service, processing_time: str) -> None:
         self._processing_time = processing_time
 
+    @property
+    def has_input(self: Service) -> List[Evidence]:
+        """Has_input attribute."""
+        return self._has_input
+
+    @has_input.setter
+    def has_input(self: Service, has_input: List[Evidence]) -> None:
+        self._has_input = has_input
+
     # -
 
     def to_rdf(
@@ -194,6 +207,7 @@ class Service:
         self._follows_to_graph()
         self._has_legal_resources_to_graph()
         self._processing_time_to_graph()
+        self._has_input_to_graph()
 
         return self._g
 
@@ -271,3 +285,14 @@ class Service:
                     Literal(self.processing_time, datatype=XSD.duration),
                 )
             )
+
+    def _has_input_to_graph(self: Service) -> None:
+        if getattr(self, "has_input", None):
+            for _evidence in self.has_input:
+                self._g.add(
+                    (
+                        URIRef(self.identifier),
+                        CPSV.hasInput,
+                        URIRef(_evidence.identifier),
+                    )
+                )

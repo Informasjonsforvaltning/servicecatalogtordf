@@ -2,7 +2,7 @@
 
 This module contains methods for mapping a PublicOrganization object to rdf
 according to the
-`dcat-ap-no v.2 standard <https://data.norge.no/specification/dcat-ap-no/#OffentligOrganisasjon>`__ # noqa
+`dcat-ap-no v.2 standard <https://data.norge.no/specification/dcat-ap-no/#OffentligOrganisasjon>`_ # noqa
 
 Example:
     >>> from datacatalogtordf import Location

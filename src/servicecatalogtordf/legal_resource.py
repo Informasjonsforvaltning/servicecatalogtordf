@@ -1,11 +1,9 @@
 """Module for mapping a LegalResource to rdf.
 
 This module contains methods for mapping a LegalResource object to rdf
-according to the
-`dcat-ap-no v.2 standard <https://data.norge.no/specification/dcat-ap-no/#OffentligOrganisasjon>`__ # noqa
+according to the `dcat-ap-no v.2 standard <https://data.norge.no/specification/dcat-ap-no/#RegulativRessurs>`_ # noqa
 
 Example:
-    >>> from datacatalogtordf import Location
     >>> from servicecatalogtordf import LegalResource, LegalResourceType
     >>>
     >>> # Create the legal_resource:
