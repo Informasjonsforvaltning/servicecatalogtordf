@@ -57,10 +57,10 @@ def test_to_graph_should_return_evidence_with_dct_identifier() -> None:
     assert_isomorphic(g1, g2)
 
 
-def test_to_graph_should_return_evidence_with_title() -> None:
+def test_to_graph_should_return_evidence_with_name() -> None:
     """It returns a evidence graph with dct:title isomorphic to spec."""
     evidence = Evidence("http://example.com/evidences/1")
-    evidence.title = {
+    evidence.name = {
         "en": "Evidence 1",
         "nb": "Bevis 1",
     }

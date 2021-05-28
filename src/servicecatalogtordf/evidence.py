@@ -9,7 +9,7 @@ Example:
     >>> # Create the evidence:
     >>> evidence = Evidence("http://example.com/evidences/1")
     >>> evidence.dct_identifier = "1"
-    >>> evidence.title = {"nb": "Mitt bevis"}
+    >>> evidence.name = {"nb": "Mitt bevis"}
     >>>
     >>> bool(evidence.to_rdf())
     True
@@ -37,7 +37,7 @@ class Evidence:
     Attributes:
         identifier (URI): A URI uniquely identifying the evidence
         dct_identifier (str):  A formal identifier of the evidence.
-        title (dict): The official name of the piece of evidence. key is language code.
+        name (dict): The official name of the piece of evidence. key is language code.
         description (dict): A description given to the evidence. key is language code.
         type (URI): the type of evidence as described in a controlled vocabulary.
         related_documentation (List[URI]): References to other information resources
@@ -49,7 +49,7 @@ class Evidence:
         "_g",
         "_identifier",
         "_dct_identifier",
-        "_title",
+        "_name",
         "_description",
         "_type",
         "_related_documentation",
@@ -60,7 +60,7 @@ class Evidence:
     _g: Graph
     _identifier: URI
     _dct_identifier: str
-    _title: dict
+    _name: dict
     _description: dict
     _type: URI
     _related_documentation: List[URI]
@@ -83,13 +83,13 @@ class Evidence:
             self._identifier = URI(identifier)
 
     @property
-    def title(self: Evidence) -> dict:
+    def name(self: Evidence) -> dict:
         """Title attribute."""
-        return self._title
+        return self._name
 
-    @title.setter
-    def title(self: Evidence, title: dict) -> None:
-        self._title = title
+    @name.setter
+    def name(self: Evidence, name: dict) -> None:
+        self._name = name
 
     @property
     def dct_identifier(self: Evidence) -> str:
@@ -176,7 +176,7 @@ class Evidence:
         self._g.add((URIRef(self.identifier), RDF.type, CPSV.Evidence))
 
         self._dct_identifier_to_graph()
-        self._title_to_graph()
+        self._name_to_graph()
         self._description_to_graph()
         self._type_to_graph()
         self._related_documentation_to_graph()
@@ -195,14 +195,14 @@ class Evidence:
                 )
             )
 
-    def _title_to_graph(self: Evidence) -> None:
-        if getattr(self, "title", None):
-            for key in self.title:
+    def _name_to_graph(self: Evidence) -> None:
+        if getattr(self, "name", None):
+            for key in self.name:
                 self._g.add(
                     (
                         URIRef(self.identifier),
                         DCT.title,
-                        Literal(self.title[key], lang=key),
+                        Literal(self.name[key], lang=key),
                     )
                 )
 
