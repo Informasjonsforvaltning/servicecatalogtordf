@@ -54,18 +54,18 @@ print(rdf.decode())
 - [nox-poetry](https://github.com/cjolowicz/nox-poetry)
 
 ```
-% pipx install poetry==1.1.6
-% pipx install nox==2020.12.31
+% pipx install poetry==1.1.7
+% pipx install nox==2021.06.12
 % pipx inject nox nox-poetry
 ```
 ### Install
 ```
 % git clone https://github.com/Informasjonsforvaltning/servicecatalogtordf.git
 % cd servicecatalogtordf
-% pyenv install 3.7.10
-% pyenv install 3.8.8
-% pyenv install 3.9.4
-% pyenv local 3.7.10 3.8.8 3.9.4
+% pyenv install 3.7.11
+% pyenv install 3.8.11
+% pyenv install 3.9.6
+% pyenv local 3.7.11 3.8.11 3.9.6
 % poetry install
 ```
 ### Run all sessions
