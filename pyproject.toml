@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "servicecatalogtordf"
-version = "0.1.0-alpha.10"
+version = "0.1.0-alpha.11"
 description = "A library that will map a service catalog (cpsv) to rdf"
 authors = ["Stig B. Dørmænen <stigbd@gmail.com>"]
 license = "Apache-2.0"
@@ -16,7 +16,7 @@ classifiers=[
 [tool.poetry.dependencies]
 python = "^3.7"
 skolemizer = "^1.0.0"
-datacatalogtordf = "^1.4.0"
+datacatalogtordf = "^1.4.7"
 
 [tool.poetry.dev-dependencies]
 black = "^21.5b1"

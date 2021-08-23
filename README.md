@@ -43,7 +43,7 @@ catalog.services.append(service)
 
 # Get rdf representation in turtle (default)
 rdf = catalog.to_rdf()
-print(rdf.decode())
+print(rdf)
 ```
 ## Development
 ### Requirements
