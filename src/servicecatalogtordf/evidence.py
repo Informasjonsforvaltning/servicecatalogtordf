@@ -16,7 +16,7 @@ Example:
 """
 from __future__ import annotations
 
-from typing import List, Optional
+from typing import List, Optional, Union
 
 from datacatalogtordf import URI
 from rdflib import Graph, Literal, Namespace, RDF, URIRef
@@ -142,7 +142,7 @@ class Evidence:
         self: Evidence,
         format: str = "turtle",
         encoding: Optional[str] = "utf-8",
-    ) -> bytes:
+    ) -> Union[bytes, str]:
         """Maps the evidence to rdf.
 
         Available formats:
@@ -191,7 +191,7 @@ class Evidence:
                 (
                     URIRef(self.identifier),
                     DCT.identifier,
-                    Literal(self.dct_identifier),
+                    Literal(self.dct_identifier, datatype=XSD.anyURI),
                 )
             )
 

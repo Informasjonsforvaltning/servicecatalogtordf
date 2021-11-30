@@ -41,9 +41,10 @@ def test_to_graph_should_return_rule_with_dct_identifier() -> None:
     @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
     @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
     @prefix cpsv: <http://purl.org/vocab/cpsv#> .
+    @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
     <http://example.com/rules/1> a cpsv:Rule ;
-        dct:identifier   "https://unique.uri.com" ;
+        dct:identifier   "https://unique.uri.com"^^xsd:anyURI ;
     .
     """
     g1 = Graph().parse(data=rule.to_rdf(), format="turtle")
@@ -69,10 +70,11 @@ def test_to_graph_should_return_rule_as_blank_node(
     @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
     @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
     @prefix cpsv: <http://purl.org/vocab/cpsv#> .
+    @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
     <http://example.com/.well-known/skolem/284db4d2-80c2-11eb-82c3-83e80baa2f94>
         a cpsv:Rule ;
-        dct:identifier   "https://unique.uri.com" ;
+        dct:identifier   "https://unique.uri.com"^^xsd:anyURI ;
     .
     """
     g1 = Graph().parse(data=rule.to_rdf(), format="turtle")

@@ -1,5 +1,5 @@
 """Nox sessions."""
-import tempfile
+import sys
 
 import nox
 from nox_poetry import Session, session
@@ -7,6 +7,8 @@ from nox_poetry import Session, session
 
 package = "servicecatalogtordf"
 locations = "src", "tests", "noxfile.py", "docs/conf.py"
+nox.options.envdir = ".cache"
+nox.options.reuse_existing_virtualenvs = True
 nox.options.stop_on_first_error = True
 nox.options.sessions = "lint", "mypy", "pytype", "tests"
 
@@ -28,12 +30,20 @@ def lint(session: Session) -> None:
     session.run("flake8", *args)
 
 
-@session(python="3.9")
+@session
 def mypy(session: Session) -> None:
     """Type-check using mypy."""
-    args = session.posargs or locations
-    session.install("mypy")
+    args = session.posargs or [
+        "--install-types",
+        "--non-interactive",
+        "src",
+        "tests",
+    ]
+    session.install(".")
+    session.install("mypy", "pytest")
     session.run("mypy", *args)
+    if not session.posargs:
+        session.run("mypy", f"--python-executable={sys.executable}", "noxfile.py")
 
 
 @session(python="3.7")
@@ -69,18 +79,9 @@ def black(session: Session) -> None:
 @session(python="3.9")
 def safety(session: Session) -> None:
     """Scan dependencies for insecure packages."""
-    with tempfile.NamedTemporaryFile() as requirements:
-        session.run(
-            "poetry",
-            "export",
-            "--dev",
-            "--format=requirements.txt",
-            "--without-hashes",
-            f"--output={requirements.name}",
-            external=True,
-        )
-        session.install("safety")
-        session.run("safety", "check", f"--file={requirements.name}", "--full-report")
+    requirements = session.poetry.export_requirements()
+    session.install("safety")
+    session.run("safety", "check", "--full-report", f"--file={requirements}")
 
 
 @session(python="3.9")

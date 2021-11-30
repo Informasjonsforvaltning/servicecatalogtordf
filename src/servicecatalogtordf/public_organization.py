@@ -21,7 +21,7 @@ Example:
 """
 from __future__ import annotations
 
-from typing import Optional
+from typing import Optional, Union
 
 from datacatalogtordf import Location, URI
 from rdflib import Graph, Literal, Namespace, RDF, SKOS, URIRef
@@ -119,7 +119,7 @@ class PublicOrganization:
         self: PublicOrganization,
         format: str = "turtle",
         encoding: Optional[str] = "utf-8",
-    ) -> bytes:
+    ) -> Union[bytes, str]:
         """Maps the public_organization to rdf.
 
         Available formats:
@@ -175,7 +175,7 @@ class PublicOrganization:
                 (
                     URIRef(self.identifier),
                     DCT.identifier,
-                    Literal(self.dct_identifier),
+                    Literal(self.dct_identifier, datatype=XSD.anyURI),
                 )
             )
 

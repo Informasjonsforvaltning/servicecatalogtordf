@@ -16,7 +16,7 @@ Example:
 """
 from __future__ import annotations
 
-from typing import List, Optional
+from typing import List, Optional, Union
 
 from datacatalogtordf import URI
 from rdflib import Graph, Literal, Namespace, RDF, URIRef
@@ -143,7 +143,7 @@ class Rule:
         self: Rule,
         format: str = "turtle",
         encoding: Optional[str] = "utf-8",
-    ) -> bytes:
+    ) -> Union[bytes, str]:
         """Maps the rule to rdf.
 
         Available formats:
@@ -156,7 +156,7 @@ class Rule:
             encoding (str): the encoding to serialize into
 
         Returns:
-            a rdf serialization as a bytes literal according to format.
+            a rdf serialization as a string literal according to format.
         """
         return self._to_graph().serialize(format=format, encoding=encoding)
 
@@ -202,7 +202,7 @@ class Rule:
                 (
                     URIRef(self.identifier),
                     DCT.identifier,
-                    Literal(self.dct_identifier),
+                    Literal(self.dct_identifier, datatype=XSD.anyURI),
                 )
             )
 
