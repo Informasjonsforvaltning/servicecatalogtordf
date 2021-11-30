@@ -1,33 +1,41 @@
 [tool.poetry]
-name = "servicecatalogtordf"
-version = "0.1.0-alpha.12"
-description = "A library that will map a service catalog (cpsv) to rdf"
 authors = ["Stig B. Dørmænen <stigbd@gmail.com>"]
-license = "Apache-2.0"
-readme = "README.md"
-homepage = "https://github.com/Informasjonsforvaltning/servicecatalogtordf"
-repository = "https://github.com/Informasjonsforvaltning/servicecatalogtordf"
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "License :: OSI Approved :: Apache Software License",
+  "Operating System :: OS Independent",
+]
+description = "A library that will map a service catalog (cpsv) to rdf"
 documentation = "https://servicecatalogtordf.readthedocs.io"
-classifiers=[
-      "Programming Language :: Python :: 3",
-      "License :: OSI Approved :: Apache Software License",
-      "Operating System :: OS Independent",
-      ]
+homepage = "https://github.com/Informasjonsforvaltning/servicecatalogtordf"
+license = "Apache-2.0"
+name = "servicecatalogtordf"
+readme = "README.md"
+repository = "https://github.com/Informasjonsforvaltning/servicecatalogtordf"
+version = "0.1.0-alpha.12"
+
 [tool.poetry.dependencies]
-python = "^3.7"
-skolemizer = "^1.0.0"
 datacatalogtordf = "^1.4.7"
+python = ">=3.7,<3.10"
+skolemizer = "^1.0.0"
 
 [tool.poetry.dev-dependencies]
-black = "^21.5b1"
-flake8-black = "^0.2.1"
-Sphinx = "^4.0.1"
-sphinx-autodoc-typehints = "^1.12.0"
 Pygments = "^2.9.0"
-xdoctest = {extras = ["all"], version = "^0.15.4"}
-pytest-mock = "^3.6.1"
+Sphinx = "^4.0.1"
+black = "^21.5b1"
 flake8 = "^4.0.1"
-
+flake8-black = "^0.2.1"
+mypy = "^0.910"
+pytest-mock = "^3.6.1"
+sphinx-autodoc-typehints = "^1.12.0"
+xdoctest = {extras = ["all"], version = "^0.15.4"}
+pytype = "2021.11.02"
+flake8-annotations = "^2.7.0"
+flake8-bandit = "^2.1.2"
+flake8-bugbear = "^21.11.29"
+flake8-docstrings = "^1.6.0"
+flake8-import-order = "^0.18.1"
+darglint = "^1.8.1"
 
 [tool.coverage.paths]
 source = ["src", "*/site-packages"]
@@ -37,10 +45,9 @@ branch = false
 source = ["servicecatalogtordf"]
 
 [tool.coverage.report]
-show_missing = true
 fail_under = 100
-
+show_missing = true
 
 [build-system]
-requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
+requires = ["poetry-core>=1.0.0"]
