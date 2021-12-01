@@ -54,7 +54,7 @@ def pytype(session: Session) -> None:
     session.run("pytype", *args)
 
 
-@session(python=["3.7", "3.8", "3.9"])
+@session(python=["3.7", "3.9"])
 def tests(session: Session) -> None:
     """Run the test suite."""
     args = session.posargs or ["--cov"]
