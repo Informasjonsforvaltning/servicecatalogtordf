@@ -65,7 +65,8 @@ class Event:
 
     def __init__(self, identifier: Optional[str] = None) -> None:
         """Inits an object with default values."""
-        self.identifier = identifier
+        if identifier:
+            self.identifier = identifier
         self.related_service = list()
 
     @property

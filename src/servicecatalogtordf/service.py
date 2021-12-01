@@ -19,7 +19,10 @@ from typing import List, Optional, Union
 
 from datacatalogtordf import URI
 from rdflib import Graph, Literal, Namespace, RDF, URIRef
+from skolemizer import Skolemizer
 
+
+from .criterion_requirement import CriterionRequirement
 from .event import Event
 from .evidence import Evidence
 from .legal_resource import LegalResource
@@ -48,6 +51,7 @@ class Service:
         processing_time (str): the (estimated) time needed for executing a Public
         has_input (List[Evidence]): links the Service to one or more instances of the Evidence class
         is_grouped_by (List[Event]): links the Public Service to the Event class
+        has_criterion: (List[CriterionRequirement]): a list of criterial for needing or using the service
     """
 
     __slots__ = (
@@ -62,6 +66,7 @@ class Service:
         "_processing_time",
         "_has_input",
         "_is_grouped_by",
+        "_has_criterion",
     )
 
     # Types
@@ -76,6 +81,7 @@ class Service:
     _processing_time: str
     _has_input: List[Evidence]
     _is_grouped_by: List[Event]
+    _has_criterion: List[CriterionRequirement]
 
     def __init__(self, identifier: str) -> None:
         """Inits an object with default values."""
@@ -84,6 +90,7 @@ class Service:
         self.has_legal_resources = list()
         self.has_input = list()
         self.is_grouped_by = list()
+        self.has_criterion = list()
 
     @property
     def identifier(self: Service) -> str:
@@ -179,6 +186,15 @@ class Service:
     def is_grouped_by(self: Service, is_grouped_by: List[Event]) -> None:
         self._is_grouped_by = is_grouped_by
 
+    @property
+    def has_criterion(self: Service) -> List[CriterionRequirement]:
+        """Has_input attribute."""
+        return self._has_criterion
+
+    @has_criterion.setter
+    def has_criterion(self: Service, has_criterion: List[CriterionRequirement]) -> None:
+        self._has_criterion = has_criterion
+
     # -
 
     def to_rdf(
@@ -223,6 +239,7 @@ class Service:
         self._processing_time_to_graph()
         self._has_input_to_graph()
         self._is_grouped_by_to_graph()
+        self._has_criterion_to_graph()
 
         return self._g
 
@@ -315,10 +332,29 @@ class Service:
     def _is_grouped_by_to_graph(self: Service) -> None:
         if getattr(self, "is_grouped_by", None):
             for _event in self.is_grouped_by:
+
+                if not getattr(_event, "identifier", None):
+                    _event.identifier = Skolemizer.add_skolemization()
+
                 self._g.add(
                     (
                         URIRef(self.identifier),
                         CV.isGroupedBy,
                         URIRef(_event.identifier),
+                    )
+                )
+
+    def _has_criterion_to_graph(self: Service) -> None:
+        if getattr(self, "has_criterion", None):
+            for _criterion_requirement in self.has_criterion:
+
+                if not getattr(_criterion_requirement, "identifier", None):
+                    _criterion_requirement.identifier = Skolemizer.add_skolemization()
+
+                self._g.add(
+                    (
+                        URIRef(self.identifier),
+                        CV.hasCriterion,
+                        URIRef(_criterion_requirement.identifier),
                     )
                 )
