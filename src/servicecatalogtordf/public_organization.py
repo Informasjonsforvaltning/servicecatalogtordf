@@ -21,7 +21,7 @@ Example:
 """
 from __future__ import annotations
 
-from typing import Optional
+from typing import Optional, Union
 
 from datacatalogtordf import Location, URI
 from rdflib import Graph, Literal, Namespace, RDF, SKOS, URIRef
@@ -65,15 +65,16 @@ class PublicOrganization:
 
     def __init__(self, identifier: Optional[str] = None) -> None:
         """Inits an object with default values."""
-        self.identifier = identifier
+        if identifier:
+            self.identifier = identifier
 
     @property
-    def identifier(self: PublicOrganization) -> Optional[str]:
+    def identifier(self: PublicOrganization) -> str:
         """Get/set for identifier."""
         return self._identifier
 
     @identifier.setter
-    def identifier(self: PublicOrganization, identifier: Optional[str]) -> None:
+    def identifier(self: PublicOrganization, identifier: str) -> None:
         if identifier:
             self._identifier = URI(identifier)
 
@@ -119,7 +120,7 @@ class PublicOrganization:
         self: PublicOrganization,
         format: str = "turtle",
         encoding: Optional[str] = "utf-8",
-    ) -> bytes:
+    ) -> Union[bytes, str]:
         """Maps the public_organization to rdf.
 
         Available formats:
@@ -175,7 +176,7 @@ class PublicOrganization:
                 (
                     URIRef(self.identifier),
                     DCT.identifier,
-                    Literal(self.dct_identifier),
+                    Literal(self.dct_identifier, datatype=XSD.anyURI),
                 )
             )
 

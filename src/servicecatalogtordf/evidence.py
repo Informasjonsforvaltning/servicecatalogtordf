@@ -16,7 +16,7 @@ Example:
 """
 from __future__ import annotations
 
-from typing import List, Optional
+from typing import List, Optional, Union
 
 from datacatalogtordf import URI
 from rdflib import Graph, Literal, Namespace, RDF, URIRef
@@ -68,17 +68,18 @@ class Evidence:
 
     def __init__(self, identifier: Optional[str] = None) -> None:
         """Inits an object with default values."""
-        self.identifier = identifier
+        if identifier:
+            self.identifier = identifier
         self.related_documentation = list()
         self.languages = list()
 
     @property
-    def identifier(self: Evidence) -> Optional[str]:
+    def identifier(self: Evidence) -> str:
         """Get/set for identifier."""
         return self._identifier
 
     @identifier.setter
-    def identifier(self: Evidence, identifier: Optional[str]) -> None:
+    def identifier(self: Evidence, identifier: str) -> None:
         if identifier:
             self._identifier = URI(identifier)
 
@@ -142,7 +143,7 @@ class Evidence:
         self: Evidence,
         format: str = "turtle",
         encoding: Optional[str] = "utf-8",
-    ) -> bytes:
+    ) -> Union[bytes, str]:
         """Maps the evidence to rdf.
 
         Available formats:
@@ -191,7 +192,7 @@ class Evidence:
                 (
                     URIRef(self.identifier),
                     DCT.identifier,
-                    Literal(self.dct_identifier),
+                    Literal(self.dct_identifier, datatype=XSD.anyURI),
                 )
             )
 

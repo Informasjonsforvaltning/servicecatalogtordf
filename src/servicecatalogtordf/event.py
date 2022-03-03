@@ -16,7 +16,7 @@ Example:
 """
 from __future__ import annotations
 
-from typing import List, Optional
+from typing import List, Optional, Union
 
 from datacatalogtordf import URI
 from rdflib import Graph, Literal, Namespace, RDF, URIRef
@@ -65,16 +65,17 @@ class Event:
 
     def __init__(self, identifier: Optional[str] = None) -> None:
         """Inits an object with default values."""
-        self.identifier = identifier
+        if identifier:
+            self.identifier = identifier
         self.related_service = list()
 
     @property
-    def identifier(self: Event) -> Optional[str]:
+    def identifier(self: Event) -> str:
         """Get/set for identifier."""
         return self._identifier
 
     @identifier.setter
-    def identifier(self: Event, identifier: Optional[str]) -> None:
+    def identifier(self: Event, identifier: str) -> None:
         if identifier:
             self._identifier = URI(identifier)
 
@@ -129,7 +130,7 @@ class Event:
         self: Event,
         format: str = "turtle",
         encoding: Optional[str] = "utf-8",
-    ) -> bytes:
+    ) -> Union[bytes, str]:
         """Maps the event to rdf.
 
         Available formats:
@@ -176,7 +177,7 @@ class Event:
                 (
                     URIRef(self.identifier),
                     DCT.identifier,
-                    Literal(self.dct_identifier),
+                    Literal(self.dct_identifier, datatype=XSD.anyURI),
                 )
             )
 

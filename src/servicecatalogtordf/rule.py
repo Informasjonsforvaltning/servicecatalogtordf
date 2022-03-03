@@ -16,7 +16,7 @@ Example:
 """
 from __future__ import annotations
 
-from typing import List, Optional
+from typing import List, Optional, Union
 
 from datacatalogtordf import URI
 from rdflib import Graph, Literal, Namespace, RDF, URIRef
@@ -68,20 +68,20 @@ class Rule:
 
     def __init__(self, identifier: Optional[str] = None) -> None:
         """Inits an object with default values."""
-        self.identifier = identifier
+        if identifier:
+            self.identifier = identifier
         self.implements = list()
         self.languages = list()
         self.types = list()
 
     @property
-    def identifier(self: Rule) -> Optional[str]:
+    def identifier(self: Rule) -> str:
         """Get/set for identifier."""
         return self._identifier
 
     @identifier.setter
-    def identifier(self: Rule, identifier: Optional[str]) -> None:
-        if identifier:
-            self._identifier = URI(identifier)
+    def identifier(self: Rule, identifier: str) -> None:
+        self._identifier = URI(identifier)
 
     @property
     def title(self: Rule) -> dict:
@@ -143,7 +143,7 @@ class Rule:
         self: Rule,
         format: str = "turtle",
         encoding: Optional[str] = "utf-8",
-    ) -> bytes:
+    ) -> Union[bytes, str]:
         """Maps the rule to rdf.
 
         Available formats:
@@ -156,7 +156,7 @@ class Rule:
             encoding (str): the encoding to serialize into
 
         Returns:
-            a rdf serialization as a bytes literal according to format.
+            a rdf serialization as a string literal according to format.
         """
         return self._to_graph().serialize(format=format, encoding=encoding)
 
@@ -202,7 +202,7 @@ class Rule:
                 (
                     URIRef(self.identifier),
                     DCT.identifier,
-                    Literal(self.dct_identifier),
+                    Literal(self.dct_identifier, datatype=XSD.anyURI),
                 )
             )
 
