@@ -73,9 +73,9 @@ print(rdf)
 ```Shell
 % git clone https://github.com/Informasjonsforvaltning/servicecatalogtordf.git
 % cd servicecatalogtordf
-% pyenv install 3.7.11
-% pyenv install 3.9.6
-% pyenv local 3.7.11 3.9.6
+% pyenv install 3.8.12
+% pyenv install 3.9.10
+% pyenv local 3.8.12 3.9.10
 % poetry install
 ```
 

@@ -46,7 +46,7 @@ def mypy(session: Session) -> None:
         session.run("mypy", f"--python-executable={sys.executable}", "noxfile.py")
 
 
-@session(python="3.7")
+@session(python="3.8")
 def pytype(session: Session) -> None:
     """Run the static type checker using pytype."""
     args = session.posargs or ["--disable=import-error", *locations]
@@ -54,7 +54,7 @@ def pytype(session: Session) -> None:
     session.run("pytype", *args)
 
 
-@session(python=["3.7", "3.9"])
+@session(python=["3.8", "3.9"])
 def tests(session: Session) -> None:
     """Run the test suite."""
     args = session.posargs or ["--cov"]

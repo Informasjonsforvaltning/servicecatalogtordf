@@ -44,15 +44,16 @@ class ResourceType:
 
     def __init__(self, identifier: Optional[str] = None) -> None:
         """Inits an object with default values."""
-        self.identifier = identifier
+        if identifier:
+            self.identifier = identifier
 
     @property
-    def identifier(self: ResourceType) -> Optional[str]:
+    def identifier(self: ResourceType) -> str:
         """Get/set for identifier."""
         return self._identifier
 
     @identifier.setter
-    def identifier(self: ResourceType, identifier: Optional[str]) -> None:
+    def identifier(self: ResourceType, identifier: str) -> None:
         if identifier:
             self._identifier = URI(identifier)
 
@@ -92,18 +93,19 @@ class LegalResource:
 
     def __init__(self, identifier: Optional[str] = None) -> None:
         """Inits an object with default values."""
-        self.identifier = identifier
+        if identifier:
+            self.identifier = identifier
         self.types = list()
         self.references = list()
         self.related = list()
 
     @property
-    def identifier(self: LegalResource) -> Optional[str]:
+    def identifier(self: LegalResource) -> str:
         """Get/set for identifier."""
         return self._identifier
 
     @identifier.setter
-    def identifier(self: LegalResource, identifier: Optional[str]) -> None:
+    def identifier(self: LegalResource, identifier: str) -> None:
         if identifier:
             self._identifier = URI(identifier)
 

@@ -68,17 +68,18 @@ class Evidence:
 
     def __init__(self, identifier: Optional[str] = None) -> None:
         """Inits an object with default values."""
-        self.identifier = identifier
+        if identifier:
+            self.identifier = identifier
         self.related_documentation = list()
         self.languages = list()
 
     @property
-    def identifier(self: Evidence) -> Optional[str]:
+    def identifier(self: Evidence) -> str:
         """Get/set for identifier."""
         return self._identifier
 
     @identifier.setter
-    def identifier(self: Evidence, identifier: Optional[str]) -> None:
+    def identifier(self: Evidence, identifier: str) -> None:
         if identifier:
             self._identifier = URI(identifier)
 

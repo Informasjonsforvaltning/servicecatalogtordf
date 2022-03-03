@@ -65,15 +65,16 @@ class PublicOrganization:
 
     def __init__(self, identifier: Optional[str] = None) -> None:
         """Inits an object with default values."""
-        self.identifier = identifier
+        if identifier:
+            self.identifier = identifier
 
     @property
-    def identifier(self: PublicOrganization) -> Optional[str]:
+    def identifier(self: PublicOrganization) -> str:
         """Get/set for identifier."""
         return self._identifier
 
     @identifier.setter
-    def identifier(self: PublicOrganization, identifier: Optional[str]) -> None:
+    def identifier(self: PublicOrganization, identifier: str) -> None:
         if identifier:
             self._identifier = URI(identifier)
 

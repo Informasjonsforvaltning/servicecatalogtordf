@@ -70,12 +70,12 @@ class Event:
         self.related_service = list()
 
     @property
-    def identifier(self: Event) -> Optional[str]:
+    def identifier(self: Event) -> str:
         """Get/set for identifier."""
         return self._identifier
 
     @identifier.setter
-    def identifier(self: Event, identifier: Optional[str]) -> None:
+    def identifier(self: Event, identifier: str) -> None:
         if identifier:
             self._identifier = URI(identifier)
 

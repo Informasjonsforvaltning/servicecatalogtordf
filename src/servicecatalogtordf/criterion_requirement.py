@@ -63,12 +63,12 @@ class CriterionRequirement:
         self.types = list()
 
     @property
-    def identifier(self: CriterionRequirement) -> Optional[str]:
+    def identifier(self: CriterionRequirement) -> str:
         """Get/set for identifier."""
         return self._identifier
 
     @identifier.setter
-    def identifier(self: CriterionRequirement, identifier: Optional[str]) -> None:
+    def identifier(self: CriterionRequirement, identifier: str) -> None:
         if identifier:
             self._identifier = URI(identifier)
 
