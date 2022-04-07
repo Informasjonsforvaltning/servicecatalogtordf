@@ -61,7 +61,7 @@ This package can be used like this:
   service.has_competent_authority = public_organization
   #
   # Add service to catalog:
-  catalog.services.append(service)
+  catalog.contains_services.append(service)
 
   # Get rdf representation in turtle (default)
   rdf = catalog.to_rdf()

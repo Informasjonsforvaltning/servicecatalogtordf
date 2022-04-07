@@ -22,7 +22,7 @@ Example:
     >>> service.has_competent_authority = public_organization
     >>> #
     >>> # Add service to catalog:
-    >>> catalog.services.append(service)
+    >>> catalog.contains_services.append(service)
 
     >>> # Get rdf representation in turtle (default)
     >>> bool(catalog.to_rdf())
