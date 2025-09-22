@@ -1,5 +1,11 @@
 # servicecatalogtordf
 
+> ⚠️ This repository is archived
+> 
+> This codebase is no longer in use and is not under active development.
+> If you are interested in reviving or contributing to this project, please contact us at fellesdatakatalog@digdir.no.
+
+
 ![Tests](https://github.com/Informasjonsforvaltning/servicecatalogtordf/workflows/Tests/badge.svg)
 [![codecov](https://codecov.io/gh/Informasjonsforvaltning/servicecatalogtordf/branch/main/graph/badge.svg)](https://codecov.io/gh/Informasjonsforvaltning/servicecatalogtordf)
 [![PyPI](https://img.shields.io/pypi/v/servicecatalogtordf.svg)](https://pypi.org/project/servicecatalogtordf/)
